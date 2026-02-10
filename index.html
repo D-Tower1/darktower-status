@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Tower — Status</title>
+<style>
+body{font-family:system-ui,Arial;margin:24px;max-width:900px}
+pre{background:#111;color:#0f0;padding:16px;border-radius:10px}
+</style>
+</head>
+<body>
+<h1>The Tower Stands.</h1>
+<p>Live system proof-of-life. Read-only. Not investment advice.</p>
+<pre id="out">loading…</pre>
+<script>
+fetch("./status.json",{cache:"no-store"})
+  .then(r=>r.json())
+  .then(j=>out.textContent=JSON.stringify(j,null,2))
+  .catch(e=>out.textContent=e);
+</script>
+</body>
+</html>
