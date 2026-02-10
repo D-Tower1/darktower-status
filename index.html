@@ -1,23 +1,48 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Tower — Status</title>
-<style>
-body{font-family:system-ui,Arial;margin:24px;max-width:900px}
-pre{background:#111;color:#0f0;padding:16px;border-radius:10px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dark Tower Data</title>
 </head>
 <body>
-<h1>The Tower Stands.</h1>
-<p>Live system proof-of-life. Read-only. Not investment advice.</p>
-<pre id="out">loading…</pre>
-<script>
-fetch("./status.json",{cache:"no-store"})
-  .then(r=>r.json())
-  .then(j=>out.textContent=JSON.stringify(j,null,2))
-  .catch(e=>out.textContent=e);
-</script>
+  <h1>Dark Tower Data</h1>
+  <p><strong>The Tower Stands Regardless.</strong></p>
+
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/data.html">Data</a> |
+    <a href="/early-access.html">Early Access</a>
+  </nav>
+  <hr>
+
+  <h2>Audit-first market data</h2>
+  <p>
+    Dark Tower Data provides clean, verifiable datasets for traders, analysts, and builders who value integrity over noise.
+    Every delivery is produced with the assumption it will be inspected.
+  </p>
+
+  <h3>What we do</h3>
+  <ul>
+    <li>Deliver daily market data packages (starting with FX)</li>
+    <li>Ship only closed UTC days</li>
+    <li>Provide cryptographic verification (hashes + manifests)</li>
+    <li>Maintain consistent structure so automation is boring and reliable</li>
+  </ul>
+
+  <h3>What we don’t do</h3>
+  <ul>
+    <li>No trade signals</li>
+    <li>No forecasts</li>
+    <li>No performance promises</li>
+    <li>No hidden logic</li>
+  </ul>
+
+  <p><em>If it breaks under inspection, it doesn’t belong here.</em></p>
+
+  <p><a href="/early-access.html">Request Early Access</a></p>
+
+  <hr>
+  <p>&copy; Dark Tower Data</p>
 </body>
 </html>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Status — Dark Tower Data</title>
+  <style>
+    body{font-family:system-ui,Arial;margin:24px;max-width:980px}
+    nav a{margin-right:14px;text-decoration:none;color:#0b5}
+    nav a:hover{text-decoration:underline}
+    pre{background:#111;color:#0f0;padding:16px;border-radius:12px;overflow:auto}
+    .muted{color:#555}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/products.html">Products</a>
+    <a href="/about.html">About</a>
+    <a href="/status.html">Status</a>
+  </nav>
+
+  <h1>Status</h1>
+  <p class="muted">Live proof-of-life JSON is at <a href="/status.json">/status.json</a>.</p>
+  <pre id="out">Loading…</pre>
+
+<script>
+(async () => {
+  try {
+    const r = await fetch('/status.json', {cache:'no-store'});
+    const j = await r.json();
+    document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+  } catch (e) {
+    document.getElementById('out').textContent = 'Status unavailable.';
+  }
+})();
+</script>
+</body>
+</html>
