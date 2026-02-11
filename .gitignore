@@ -1,0 +1,16 @@
+# backups / snapshots / scratch
+_bak/
+_new_*/
+_snapshot_*/
+_preheal_*/
+*.bak_*
+*.bak_before_*
+*.backup*
+*.prev*
+*.orig*
+*.original*
+*.old*
+
+# generated / local
+__pycache__/
+.DS_Store

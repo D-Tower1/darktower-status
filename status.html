@@ -1,37 +1,57 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Status — Dark Tower Data</title>
-  <style>
-    body{font-family:system-ui,Arial;margin:24px;max-width:980px}
-    nav a{margin-right:14px;text-decoration:none;color:#0b5}
-    nav a:hover{text-decoration:underline}
-    pre{background:#111;color:#0f0;padding:16px;border-radius:12px;overflow:auto}
-    .muted{color:#555}
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dark Tower Data — Status</title>
+  <meta name="description" content="Live proof-of-life status for Dark Tower Data." />
+  <link rel="stylesheet" href="/style.css?v=1800000000" />
 </head>
-<body>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/products.html">Products</a>
-    <a href="/about.html">About</a>
-    <a href="/status.html">Status</a>
-  </nav>
 
-  <h1>Status</h1>
-  <p class="muted">Live proof-of-life JSON is at <a href="/status.json">/status.json</a>.</p>
-  <pre id="out">Loading…</pre>
+<body>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <img class="logo" src="/assets/tower-logo-72-super.png" alt="Dark Tower Data logo" width="72" height="72" loading="eager" decoding="async">
+        <div>Dark Tower Data</div>
+      </div>
+      <div class="navlinks">
+        <a href="/">HOME</a>
+        <a href="/data.html">DATA</a>
+        <a class="active" href="/status.html">STATUS</a>
+      </div>
+    </div>
+
+    <div class="card hero">
+      <h1>Status</h1>
+      <p class="muted">This page is live and reflects the current public status JSON generated on the Tower.</p>
+      <div class="row">
+        <a class="btn" href="/status.json" target="_blank" rel="noopener">Open status.json</a>
+        <a class="btn ghost" href="/" >Back to Home</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Live status.json</h2>
+      <pre id="out" class="pre">Loading…</pre>
+      <p class="muted">Source: <code>/status.json</code> (updated by systemd timer).</p>
+    </div>
+
+    <div class="footer muted">
+      © Dark Tower Data — Information products only — Not investment advice
+    </div>
+  </div>
 
 <script>
 (async () => {
+  const el = document.getElementById('out');
   try {
-    const r = await fetch('/status.json', {cache:'no-store'});
+    const r = await fetch('/status.json', { cache: 'no-store' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const j = await r.json();
-    document.getElementById('out').textContent = JSON.stringify(j, null, 2);
+    el.textContent = JSON.stringify(j, null, 2);
   } catch (e) {
-    document.getElementById('out').textContent = 'Status unavailable.';
+    el.textContent = 'Failed to load /status.json: ' + e;
   }
 })();
 </script>

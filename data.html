@@ -2,43 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Data | Dark Tower Data</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dark Tower Data • Data Packs</title>
+  <meta name="description" content="Download immutable daily data packs with manifests." />
+  <link rel="stylesheet" href="/style.css?v=1800000000" />
 </head>
 <body>
-  <h1>Data</h1>
-  <p><strong>Clean. Structured. Auditable.</strong></p>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <img class="logo" src="/assets/tower-logo-72-super.png" alt="Dark Tower Data logo" width="72" height="72" loading="eager" decoding="async">
+        <div>Dark Tower Data</div>
+      </div>
+      <div class="navlinks">
+        <a href="/">HOME</a>
+        <a class="active" href="/data.html">DATA</a>
+        <a href="/status.html" rel="noopener">STATUS</a>
+      </div>
+    </div>
 
-  <nav>
-    <a href="/">Home</a> |
-    <a href="/data.html">Data</a> |
-    <a href="/early-access.html">Early Access</a>
-  </nav>
-  <hr>
+    <div class="hero">
+      <h1>Download Data Packs</h1>
+      <p class="subhead">
+        Every pack includes a ZIP + manifest. If a button is visible, the file exists.
+      </p>
 
-  <h2>What we ship</h2>
-  <ul>
-    <li>Daily data packages (starting with FX)</li>
-    <li>Only fully closed UTC days</li>
-    <li>Consistent folder + file naming for automation</li>
-    <li>Verification artifacts (hashes + manifest)</li>
-  </ul>
+      <div id="packs" class="grid"></div>
 
-  <h2>How verification works</h2>
-  <ul>
-    <li>Each delivery includes a manifest listing files and hashes</li>
-    <li>You can confirm nothing was changed after packaging</li>
-    <li>Design goal: anyone can audit anytime</li>
-  </ul>
+      <div class="card" style="margin-top:16px;">
+        <h3>Verification</h3>
+        <p>
+          Each pack has a manifest JSON alongside the ZIP. Use it to verify contents and hashes.
+        </p>
+      </div>
+    </div>
 
-  <h2>What this is not</h2>
-  <ul>
-    <li>Not investment advice</li>
-    <li>Not signals or “winning trades”</li>
-    <li>Not a black box</li>
-  </ul>
+    <div class="footer">
+      © Dark Tower Data • Built for auditability.
+    </div>
+  </div>
 
-  <hr>
-  <p>&copy; Dark Tower Data</p>
+<script>
+(async function(){
+  const el = document.getElementById("packs");
+
+  function card(title, desc, zipUrl, manUrl){
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <h3>${title}</h3>
+      <p>${desc}</p>
+      <div class="ctas">
+        ${zipUrl ? `<a class="btn primary" href="${zipUrl}">DOWNLOAD ZIP</a>` : `<span class="btn disabled">Not published yet</span>`}
+        ${manUrl ? `<a class="btn" href="${manUrl}">MANIFEST</a>` : ``}
+      </div>
+      ${zipUrl ? `<div class="muted" style="margin-top:10px; font-size:12px;">${zipUrl}</div>` : ``}
+    `;
+    return div;
+  }
+
+  function pickLatest(prefix, index){
+    // index.files expected to be list of filenames
+    const files = (index && index.files) ? index.files : [];
+    const zips = files.filter(f => f.startsWith(prefix) && f.endsWith(".zip")).sort();
+    if (!zips.length) return {zip:null, man:null};
+    const zip = zips[zips.length - 1];
+    const man = zip.replace(/\.zip$/, ".manifest.json");
+    return {
+      zip: "/subscriptions/daily/" + zip,
+      man: "/subscriptions/daily/" + man
+    };
+  }
+
+  try {
+    const r = await fetch("/subscriptions/daily/index.json", {cache:"no-store"});
+    if (!r.ok) throw new Error("index.json not found");
+    const index = await r.json();
+
+    const packs = [
+      {name:"Tower Daily (combined)", prefix:"tower_daily_",
+       desc:"Combined daily bundle (UTC closed day)."},
+      {name:"Forex Daily", prefix:"tower_forex_",
+       desc:"Forex daily bundle (UTC closed day)."},
+      {name:"Stocks Daily", prefix:"tower_stocks_",
+       desc:"Stocks daily bundle (UTC closed day)."},
+      {name:"Crypto Daily", prefix:"tower_crypto_",
+       desc:"Crypto daily bundle (UTC closed day)."}
+    ];
+
+    packs.forEach(p => {
+      const latest = pickLatest(p.prefix, index);
+      el.appendChild(card(p.name, p.desc, latest.zip, latest.man));
+    });
+
+  } catch(e){
+    el.appendChild(card(
+      "Data packs unavailable",
+      "The index file could not be loaded. This page will only show real downloads when index.json is accessible.",
+      null, null
+    ));
+  }
+})();
+</script>
 </body>
 </html>

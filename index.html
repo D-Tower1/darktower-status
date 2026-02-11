@@ -2,47 +2,74 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dark Tower Data</title>
+  <meta name="description" content="Immutable market data packages with manifests and audit-ready delivery." />
+  <link rel="stylesheet" href="/style.css?v=1800000000" />
 </head>
+
 <body>
-  <h1>Dark Tower Data</h1>
-  <p><strong>The Tower Stands Regardless.</strong></p>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <img class="logo" src="/assets/tower-logo-72-super.png" alt="Dark Tower Data logo" width="72" height="72" loading="eager" decoding="async">
+        <div>Dark Tower Data</div>
+      </div>
+      <div class="navlinks">
+        <a class="active" href="/">HOME</a>
+        <a href="/data.html">DATA</a>
+        <a href="/status.html" rel="noopener">STATUS</a>
+      </div>
+    </div>
 
-  <nav>
-    <a href="/">Home</a> |
-    <a href="/data.html">Data</a> |
-    <a href="/early-access.html">Early Access</a>
-  </nav>
-  <hr>
+    <div class="hero">
+      <div class="kicker"><span class="kdot" aria-hidden="true"></span> Audit-ready delivery. No hype. Just truth.</div>
 
-  <h2>Audit-first market data</h2>
-  <p>
-    Dark Tower Data provides clean, verifiable datasets for traders, analysts, and builders who value integrity over noise.
-    Every delivery is produced with the assumption it will be inspected.
-  </p>
+      <h1>Immutable data.<br/>Exactly when you need it.</h1>
 
-  <h3>What we do</h3>
-  <ul>
-    <li>Deliver daily market data packages (starting with FX)</li>
-    <li>Ship only closed UTC days</li>
-    <li>Provide cryptographic verification (hashes + manifests)</li>
-    <li>Maintain consistent structure so automation is boring and reliable</li>
-  </ul>
+      <p class="subhead">
+        Canonical OHLCV packages with manifests and repeatable builds — designed for verification, not vibes.
+      </p>
 
-  <h3>What we don’t do</h3>
-  <ul>
-    <li>No trade signals</li>
-    <li>No forecasts</li>
-    <li>No performance promises</li>
-    <li>No hidden logic</li>
-  </ul>
+      <div class="ctas">
+        <a class="btn primary" href="/data.html">View data packs</a>
+        <a class="btn" href="/status.html" rel="noopener">Live status</a>
+      </div>
 
-  <p><em>If it breaks under inspection, it doesn’t belong here.</em></p>
+      <div class="grid">
+        <div class="card">
+          <h3>Immutable bundles</h3>
+          <p>Daily ZIPs with manifests for auditing and repeatability.</p>
+        </div>
+        <div class="card">
+          <h3>Canonical paths</h3>
+          <p>Structured directories per market/symbol/timeframe. No mystery files.</p>
+        </div>
+        <div class="card">
+          <h3>Truth-first ops</h3>
+          <p>Public status, integrity checks, and clean pipelines before expansion.</p>
+        </div>
+      </div>
 
-  <p><a href="/early-access.html">Request Early Access</a></p>
+      <div class="statusbox">
+        <div class="statusrow">
+          <span id="status-system" class="badge bad">SYSTEM: UNKNOWN</span>
+          <span id="status-note" class="badge">fetching status…</span>
+        </div>
+        <div class="statgrid">
+          <div class="stat"><div class="k">UTC</div><div class="v" id="status-utc">unknown</div></div>
+          <div class="stat"><div class="k">FX EUR/USD M5</div><div class="v" id="status-fx">unknown</div></div>
+          <div class="stat"><div class="k">STOCKS SPY M5</div><div class="v" id="status-spy">unknown</div></div>
+        </div>
+      </div>
 
-  <hr>
-  <p>&copy; Dark Tower Data</p>
+    </div>
+
+    <div class="footer">
+      © Dark Tower Data • “The Tower Stands.” • Built for auditability.
+    </div>
+  </div>
+
+  <script src="/app.js?v=2"></script>
 </body>
 </html>
