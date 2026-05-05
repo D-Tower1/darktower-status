@@ -26,7 +26,7 @@ pre{white-space:pre-wrap;font-size:12px;max-height:260px;overflow:auto}
   transform:translateY(-2px);
   border-color:#58bfff;
 }
-.card:after{
+a.card:after{
   content:"Open →";
   display:inline-block;
   margin-top:12px;
