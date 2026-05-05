@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Tower Data</title>
+<meta name="description" content="Independent market data platform with live Forex, crypto, stocks, chart pages, data packs, planned metals coverage, and system transparency.">
+<link rel="stylesheet" href="/v2/assets.css">
+
+<style>
+.v2-pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  margin-top:12px;
+  align-items:center;
+}
+.v2-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:7px 14px;
+  border:1px solid rgba(126,200,255,.55);
+  border-radius:999px;
+  color:#9bd6ff;
+  text-decoration:none;
+  font-size:13px;
+  line-height:1;
+  background:rgba(7,28,44,.55);
+  transition:all .15s ease;
+  cursor:pointer;
+}
+.v2-pill:hover{
+  color:#ffffff;
+  border-color:#7ec8ff;
+  background:rgba(126,200,255,.16);
+  box-shadow:0 0 14px rgba(126,200,255,.18);
+  transform:translateY(-1px);
+}
+.v2-pill.primary{
+  color:#ffffff;
+  border-color:#4da3ff;
+  background:rgba(77,163,255,.20);
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+<div>
+<h1>DARK TOWER DATA</h1>
+<div class="small">Independent Market Intelligence Platform</div>
+</div>
+<div id="utc" class="small"></div>
+</div>
+
+
+
+
+<div class="hero">
+<h2>Clean Data. Clear Signals. Full Transparency.</h2>
+<div class="small">Live chart pages for covered markets, downloadable data packs, planned metals coverage, and public system health.</div>
+
+<div class="v2-pill-row">
+  <a class="v2-pill" href="/data.html">Forex</a>
+  <a class="v2-pill" href="/v2/index.html#metals">Metals</a>
+  <a class="v2-pill" href="/data.html">Crypto</a>
+  <a class="v2-pill" href="/data.html">Stocks</a>
+  <a class="v2-pill primary" href="/data.html">Daily Packs</a>
+  <a class="v2-pill" href="/status.html">Audit Ready</a>
+</div>
+
+</div>
+
+<h2>Market Desks</h2>
+<div class="grid">
+<a class="card" href="/v2/forex.html"><h3>FOREX</h3><div class="small">8 live FX pairs with M15 chart pages</div></a>
+<a class="card" href="/v2/metals.html"><h3>METALS</h3><div class="small">Gold, silver, platinum, palladium — planned coverage</div></a>
+<a class="card" href="/v2/crypto.html"><h3>CRYPTO</h3><div class="small">BTC, ETH, SOL, XRP, DOGE</div></a>
+<a class="card" href="/v2/stocks.html"><h3>STOCKS</h3><div class="small">SPY, QQQ, AAPL, MSFT, NVDA, O</div></a>
+</div>
+
+<h2 style="margin-top:22px">Featured Live Charts</h2>
+<div class="grid">
+<a class="card" href="/data/EUR_USD.html"><h3>EUR_USD</h3><div class="small">Forex chart</div></a>
+<a class="card" href="/v2/metals.html"><h3>METALS</h3><div class="small">Gold, silver, platinum, palladium — parked until live coverage</div></a>
+<a class="card" href="/data/BTC_USD.html"><h3>BTC_USD</h3><div class="small">Bitcoin chart</div></a>
+<a class="card" href="/data/SPY.html"><h3>SPY</h3><div class="small">Stock chart</div></a>
+</div>
+
+<h2 style="margin-top:22px">Data Products</h2>
+<div class="grid">
+<a class="card" href="/v2/products.html"><h3>PRODUCTS</h3><div class="small">Data product overview</div></a>
+<a class="card" href="/subscriptions/daily/"><h3>DAILY PACKS</h3><div class="small">Immutable downloadable datasets</div></a>
+<a class="card" href="/data.html"><h3>LEGACY DATA</h3><div class="small">Original data catalog</div></a>
+<a class="card" href="/terminal.html"><h3>LEGACY TERMINAL</h3><div class="small">Original dashboard</div></a>
+</div>
+
+<div class="grid" style="margin-top:22px">
+<div class="box">
+<h3>Platform State</h3>
+<table class="tbl">
+<tr><td>System</td><td id="state">loading...</td></tr>
+<tr><td>Publish</td><td id="pub">--</td></tr>
+<tr><td>Trading</td><td id="trade">--</td></tr>
+<tr><td>Issues</td><td id="issues">--</td></tr>
+</table>
+</div>
+
+<div class="box">
+<h3>Coverage</h3>
+<table class="tbl">
+<tr><td class="btn" href="/data.html">Forex</td><td>8 pairs</td></tr>
+<tr><td class="btn" href="/v2/metals.html">Metals</td><td>4 planned markets</td></tr>
+<tr><td class="btn" href="/data.html">Crypto</td><td>5 markets</td></tr>
+<tr><td class="btn" href="/data.html">Stocks</td><td>6 symbols</td></tr>
+</table>
+</div>
+</div>
+
+</div>
+
+<script>
+utc.textContent=new Date().toISOString()+" UTC";
+fetch('/brain_status.json?t='+Date.now()).then(r=>r.json()).then(j=>{
+state.textContent=j.system_state||'--';
+state.className=(j.system_state==='HEALTHY'?'good':'bad');
+pub.textContent=j.publish_allowed;
+trade.textContent=j.trading_allowed;
+issues.textContent=(j.issues||[]).join(', ')||'none';
+}).catch(()=>state.textContent='unavailable');
+</script>
+
+</body>
+</html>
