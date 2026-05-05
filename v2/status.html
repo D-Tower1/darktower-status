@@ -1,0 +1,23 @@
+<!doctype html><html><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Status</title><link rel="stylesheet" href="/v2/assets.css">
+</head><body><div class="wrap">
+<h1>PLATFORM STATUS</h1><p><a href="/v2/index.html">← Home</a></p>
+<div class="box">
+<table class="tbl">
+<tr><td>System</td><td id="a">loading...</td></tr>
+<tr><td>Publish</td><td id="b">--</td></tr>
+<tr><td>Trading</td><td id="c">--</td></tr>
+<tr><td>Issues</td><td id="d">--</td></tr>
+</table>
+</div>
+<script>
+fetch('/brain_status.json?t='+Date.now()).then(r=>r.json()).then(j=>{
+a.textContent=j.system_state||'--';
+a.className=(j.system_state==='HEALTHY'?'good':'bad');
+b.textContent=j.publish_allowed;
+c.textContent=j.trading_allowed;
+d.textContent=(j.issues||[]).join(', ')||'none';
+});
+</script>
+</div></body></html>
